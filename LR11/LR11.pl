@@ -90,3 +90,8 @@ minOddU(X,M):-
 pr5(X,R):-pr5(X,1,R).
 pr5(0,T,T):-!.
 pr5(X,P,R):-D is X mod 10,D mod 5 =\= 0, P1 is (P * D),X1 is X div 10,pr5(X1,P1,R);X2 is X div 10,pr5(X2,P,R).
+
+%19
+fibU(1,1):-!.
+fibU(2,1):-!.
+fibU(N, X):- N1 is N - 1, N2 is N - 2, fibU(N1, X1), fibU(N2, X2), X is X1 + X2.
