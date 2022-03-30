@@ -85,3 +85,8 @@ minOddU(X,M):-
     minOddU(X1,M1),
     M2 is X mod 10,
     (M2 < M1, M2 mod 2 =\= 0 -> M is M2; M is M1).
+	
+%18
+pr5(X,R):-pr5(X,1,R).
+pr5(0,T,T):-!.
+pr5(X,P,R):-D is X mod 10,D mod 5 =\= 0, P1 is (P * D),X1 is X div 10,pr5(X1,P1,R);X2 is X div 10,pr5(X2,P,R).
