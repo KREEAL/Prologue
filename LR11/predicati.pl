@@ -4,7 +4,7 @@ man(boguslav).
 man(velerad). 
 man(duhovlad).
 man(svyatoslav).
-man(dobrozhir).
+man(dobrozhir). 
 man(bogomil).
 man(zlatomir).
 
