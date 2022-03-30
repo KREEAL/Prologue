@@ -26,3 +26,5 @@ minD(X,M):-
 	end if,
 	minD(X1,M1).
 	
+%fhfhfh
+	
