@@ -31,3 +31,31 @@ task2(N,A):-
 	AppC is AC,
 	gcd(MaxUd,AppC,A),!.
 	
+
+%13 Найдите число d, меньшее 1000, для которого десятичная дробь 1/d содержит самый длинный период
+
+%делит на 2 пока делится
+der2(1,1):-!.
+der2(X,R):- 
+	X1 is X div 2,
+	Os is X mod 2,!,
+	der2(X1,R1),!,
+	(Os = 0,R is R1;R is X),!.
+	
+%делит на 5 пока делится
+der5(5,1):-!.
+der5(4,1):-!.
+der5(3,1):-!.
+der5(2,1):-!.
+der5(1,1):-!.
+der5(X,R):- 
+	X1 is X div 5,
+	Os is X mod 5,
+	der5(X1,R1),!,
+	(Os = 0,R is R1;R is X),!.
+
+
+periodL(X,L):-X1 is X,der2(X1,R2),der5(R2,R5),periodL(R5,L,0,1).
+periodL(_,G,G,1):-!.
+periodL(N,L,K,R):- R > 1, R1 is (R * 10)  mod N,K1 is K + 1,!,periodL(N,L,K1,R1);periodL(N,L,K,0).
+
