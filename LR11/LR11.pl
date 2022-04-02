@@ -51,7 +51,7 @@ parent(zhdana,zlatomir).
 men:-man(X),write(X),nl,fail.
 women:-woman(X),write(X),nl,fail.
 %11
-daughter(X):- parent(X,Y),woman(Y),write(Y),nl.
+daughter(X):- parent(X,Y),woman(Y),write(Y),nl,fail.
 daughter(X,Y):-parent(Y,X),woman(X).
 %12
 wife(X):-man(X),parent(X,Z),parent(Y,Z),woman(Y),write(Y),nl,!.
@@ -60,9 +60,12 @@ wife(X,Y):-woman(X),man(Y),parent(X,Z),parent(Y,Z),write(yes),nl,!.
 grandMa(X,Y):-parent(X,Z),parent(Z,Y),woman(X),write(yes),nl,!.
 grandMas(X):-parent(Z,X),parent(Y,Z),woman(Y),write(Y),nl.
 %14
-grandMaAndDa(X,Y):-parent(X,Z),parent(Z,Y),woman(Y),woman(X),write(yes),nl,fail;parent(Y,Z),parent(Z,X),woman(X),grandMa(Y,X),write(yes),nl,fail.
-grand_pa_and_son(X,Y):-parent(X,Z),parent(Z,Y),man(X),man(Y),write(yes),nl,fail;parent(Y,Z),parent(Z,X),man(Y),man(X),write(yes),nl,fail.
+%grandMaAndDa(X,Y):- parent(X,Z),parent(Z,Y),woman(Y),woman(X),write(yes),nl,fail;parent(Y,Z),parent(Z,X),woman(X),grandMa(Y,X),write(yes),nl,fail.
+%grand_pa_and_son(X,Y):-parent(X,Z),parent(Z,Y),man(X),man(Y),write(yes),nl,fail;parent(Y,Z),parent(Z,X),man(Y),man(X),write(yes),nl,fail.
 
+in_list([],_):-fail.
+in_list([X|_],X).
+in_list([_|T],X):-in_list(T,X).
 
 %15
 minU(0,9):-!.
@@ -100,3 +103,6 @@ fibU(N, X):- N1 is N - 1, N2 is N - 2, fibU(N1, X1), fibU(N2, X2), X is X1 + X2.
 fibD(N,X):-fibD(1,1,2,N,X).
 fibD(_,F,N,N,F):-!.
 fibD(A,B,K,N,X):- C is A+B, K1 is K+1,fibD(B,C,K1,N,X).
+
+append([],X,X).
+append([X|T],Y,[X|T1]) :- append(T,Y,T1).
