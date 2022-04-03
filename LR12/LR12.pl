@@ -126,6 +126,8 @@ N1 is I - 1, N2 is I + 1, elbyindex(List,N1,I1),elbyindex(List,I,I2),elbyindex(L
 listleng(List,Len),G1 is Len-1, G2 is Len - 2, elbyindex(List,G1,K1),elbyindex(List,G2,K2),K1<K2,write(yes),!;
 write(net),!.
 
-%19(27)
+task18:-read(N),readlist(Lis,N),read(I),islocalmin(Lis,I),!.
 
-%20(30)
+%19(27)1.27 Дан целочисленный массив. Необходимо осуществить циклический сдвиг элементов массива влево на одну позицию.
+
+%20(30)1.3 является ли элемент по указанному индексу локальным минимумом
