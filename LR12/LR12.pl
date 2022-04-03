@@ -116,5 +116,16 @@ srez([_|_],I1,I2,R,Ci,Lis):- Curi is Ci + 1, Curi>I2,!,srez([],I1,Curi,R,Curi,Li
 srez([H|T],I1,I2,R,Ci,Lis):- Curi is Ci + 1, append(Lis,[H],List),!,srez(T,I1,I2,R,Curi,List).%между I1 и I2
 
 task17:-read(N),readlist(Lis,N),minel(Lis,Emin),
-getindex(Lis,Emin,In),srez(Lis,0,In-1,Before),srez(Lis,In,N-1,Aft),
+getindex(Lis,Emin,In),srez(Lis,0,In-1,Before),srez(Lis,In,N-1,After),
 append(After,Before,Res),writelist(Res),!.
+
+%18(15)
+
+islocalmin(List,I):-I=:=0, elbyindex(List,0,A1),elbyindex(List,1,A2),A1<A2,write(yes),!;
+N1 is I - 1, N2 is I + 1, elbyindex(List,N1,I1),elbyindex(List,I,I2),elbyindex(List,N2,I3),I2<I1,I2<I3,write(yes),!;
+listleng(List,Len),G1 is Len-1, G2 is Len - 2, elbyindex(List,G1,K1),elbyindex(List,G2,K2),K1<K2,write(yes),!;
+write(net),!.
+
+%19(27)
+
+%20(30)
