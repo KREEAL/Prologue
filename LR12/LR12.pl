@@ -119,7 +119,7 @@ task17:-read(N),readlist(Lis,N),minel(Lis,Emin),
 getindex(Lis,Emin,In),srez(Lis,0,In-1,Before),srez(Lis,In,N-1,After),
 append(After,Before,Res),writelist(Res),!.
 
-%18(15)
+%18(15) является ли элемент по указанному индексу локальным минимумом
 
 islocalmin(List,I):-I=:=0, elbyindex(List,0,A1),elbyindex(List,1,A2),A1<A2,write(yes),!;
 N1 is I - 1, N2 is I + 1, elbyindex(List,N1,I1),elbyindex(List,I,I2),elbyindex(List,N2,I3),I2<I1,I2<I3,write(yes),!;
