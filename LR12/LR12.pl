@@ -59,3 +59,7 @@ periodL(X,L):-X1 is X,der2(X1,R2),der5(R2,R5),periodL(R5,L,0,1).
 periodL(_,G,G,1):-!.
 periodL(N,L,K,R):- R > 1, R1 is (R * 10)  mod N,K1 is K + 1,!,periodL(N,L,K1,R1);periodL(N,L,K,0).
 
+%14 получить длину списка
+
+listleng([],0).
+listleng([_|T],I):-listleng(T,J),I is J + 1.
