@@ -72,7 +72,7 @@ readlist(A,B,C,D):- C1 is C+1,read(X),append(A,[X],A1),readlist(A1,B,C1,D).
 writelist([]):-!.
 writelist([H|T]):- write(H),write(' '),writelist(T).
 
-%15 Дан целочисленный массив и натуральный индекс (число, меньшее размера массива). Необходимо определить является ли элемент по указан-ному индексу глобальным максимумом.
+%15(3) Дан целочисленный массив и натуральный индекс (число, меньшее размера массива). Необходимо определить является ли элемент по указан-ному индексу глобальным максимумом.
 
 %индексируется с нуля
 elbyindex(L,I,El):-elbyindex(L,I,El,0).
@@ -84,3 +84,16 @@ maxel([],_,M,M):-!.
 maxel([H|T],X,Mx,El):-H>Mx,!,append(X,T,List1),maxel(T,List1,H,El);append(X,T,List2),!,maxel(T,List2,Mx,El).
 
 task15:- read(N),readlist(L,N),read(I),elbyindex(L,I,Elind),maxel(L,Elmax),(Elind =:= Elmax,write(yes);write(net)),!.
+
+%16(11)Дан целочисленный массив, в котором лишь один элемент отличается от остальных. Необходимо найти значение этого элемента.
+
+%сколько раз встретится элемент в списке
+frequency(L,El,F):- frequency(L,El,F,0).
+frequency([],_,G,G):-!.
+frequency([H|T],El,F,C):-H=:=El, C1 is C + 1,!,frequency(T,El,F,C1);frequency(T,El,F,C),!.
+
+imposter(L,I):-imposter(L,L,I,0).
+imposter([],_,K,K):-!.
+imposter([H|T],L,Y,Z):-frequency(L,H,R),R =:= 1,!,imposter(T,L,Y,H);imposter(T,L,Y,Z),!.
+
+task16:- read(N),readlist(L,N),imposter(L,I),write(I),!.
