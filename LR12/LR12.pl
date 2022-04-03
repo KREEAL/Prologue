@@ -71,3 +71,16 @@ readlist(A,B,C,D):- C1 is C+1,read(X),append(A,[X],A1),readlist(A1,B,C1,D).
 
 writelist([]):-!.
 writelist([H|T]):- write(H),write(' '),writelist(T).
+
+%15 Дан целочисленный массив и натуральный индекс (число, меньшее размера массива). Необходимо определить является ли элемент по указан-ному индексу глобальным максимумом.
+
+%индексируется с нуля
+elbyindex(L,I,El):-elbyindex(L,I,El,0).
+elbyindex([H|_],K,H,K):-!.
+elbyindex([_|Tail],I,El,Cou):- I =:= Cou,elbyindex(Tail,Cou,El,Cou);Cou1 is Cou + 1, elbyindex(Tail,I,El,Cou1).
+
+maxel(L,El):-maxel(L,[],-999,El).
+maxel([],_,M,M):-!.
+maxel([H|T],X,Mx,El):-H>Mx,!,append(X,T,List1),maxel(T,List1,H,El);append(X,T,List2),!,maxel(T,List2,Mx,El).
+
+task15:- read(N),readlist(L,N),read(I),elbyindex(L,I,Elind),maxel(L,Elmax),(Elind =:= Elmax,write(yes);write(net)),!.
