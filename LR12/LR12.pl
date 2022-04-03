@@ -63,3 +63,11 @@ periodL(N,L,K,R):- R > 1, R1 is (R * 10)  mod N,K1 is K + 1,!,periodL(N,L,K1,R1)
 
 listleng([],0).
 listleng([_|T],I):-listleng(T,J),I is J + 1.
+
+%15 - 20
+readlist(X,Y):-readlist([],X,0,Y).
+readlist(A,A,G,G):-!.
+readlist(A,B,C,D):- C1 is C+1,read(X),append(A,[X],A1),readlist(A1,B,C1,D).
+
+writelist([]):-!.
+writelist([H|T]):- write(H),write(' '),writelist(T).
