@@ -97,3 +97,24 @@ imposter([],_,K,K):-!.
 imposter([H|T],L,Y,Z):-frequency(L,H,R),R =:= 1,!,imposter(T,L,Y,H);imposter(T,L,Y,Z),!.
 
 task16:- read(N),readlist(L,N),imposter(L,I),write(I),!.
+
+%17(13)Дан целочисленный массив. Необходимо разместить элементы, расположенные до минимального, в конце массива.
+
+minel(L,El):-minel(L,[],999,El).
+minel([],_,M,M):-!.
+minel([H|T],X,Mx,El):-H<Mx,!,append(X,T,List1),minel(T,List1,H,El);append(X,T,List2),!,minel(T,List2,Mx,El).
+
+getindex(L,El,I):-getindex(L,El,I,0).
+getindex([],_,G,G):-!.
+getindex([H|T],El,I,C):- H=\=El,C1 is C + 1,!,getindex(T,El,I,C1);getindex([],El,I,C),!.
+
+%делает срез списка  - элементы с индексами I1 и I2 включительно. Индексация с нуля.
+srez(L,I1,I2,R):-srez(L,I1,I2,R,-1,[]).
+srez(_,_,O2,Res,O2,Res):-!.
+srez([_|T],I1,I2,R,Ci,Lis):- Curi is Ci + 1, Curi<I1,!,srez(T,I1,I2,R,Curi,Lis).%до I1
+srez([_|_],I1,I2,R,Ci,Lis):- Curi is Ci + 1, Curi>I2,!,srez([],I1,Curi,R,Curi,Lis).%после I2
+srez([H|T],I1,I2,R,Ci,Lis):- Curi is Ci + 1, append(Lis,[H],List),!,srez(T,I1,I2,R,Curi,List).%между I1 и I2
+
+task17:-read(N),readlist(Lis,N),minel(Lis,Emin),
+getindex(Lis,Emin,In),srez(Lis,0,In-1,Before),srez(Lis,In,N-1,Aft),
+append(After,Before,Res),writelist(Res),!.
