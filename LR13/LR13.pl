@@ -74,3 +74,23 @@ pointer(_,[],R,R):-!.
 pointer(Common,[H|T],Res,Acc):-frequency(Common,H,F),F1 is F,append(Acc,[F1],Acc1),pointer(Common,T,Res,Acc1).
 
 task13:- read(N),readlist(L,N),unique(L,Uniq),pointer(L,Uniq,Res),writelist(L),nl,writelist(Uniq),nl,writelist(Res),!. 
+
+%Задание 14 Беседует трое друзей: Белокуров, Рыжов, Чернов. Брюнет сказал Белокурову: “Любопытно, что один из нас блондин, другой брюнет, третий - рыжий, но ни у кого цвет волос не соответствует фамилии”. Какойцвет волос у каждого из друзей?
+
+inlist([],_):-fail.
+inlist([X|_],X).
+inlist([_|T],X):-inlist(T,X).
+
+task14:- Hairs=[_,_,_],
+inlist(Hairs,[belokurov,_]),
+inlist(Hairs,[chernov,_]),
+inlist(Hairs,[rizhov,_]),
+inlist(Hairs,[_,ginger]),
+inlist(Hairs,[_,blond]),
+inlist(Hairs,[_,brunette]),
+not(inlist(Hairs,[belokurov,blond])),
+not(inlist(Hairs,[chernov,brunette])),
+not(inlist(Hairs,[rizhov,ginger])),
+write(Hairs),!.
+
+%Задание 15 
