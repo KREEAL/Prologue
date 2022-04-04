@@ -185,3 +185,27 @@ not(inlist(Cheloveki,[pavlov,pinter])),
 not(inlist(Cheloveki,[voronov,pinter])),
 
 write(Cheloveki),!.
+/*
+%Задание 19 Три друга заняли первое, второе, третье места в соревнова-
+ниях универсиады. Друзья разной национальности, зовут их по-разному, и лю-
+бят они разные виды спорта. Майкл предпочитает баскетбол и играет лучше,
+чем американец. Израильтянин Саймон играет лучше теннисиста. Игрок в кри-
+кет занял первое место. Кто является австралийцем? Каким спортом увлека-
+ется Ричард?*/
+
+task19:- Atletas = [_,_,_],
+inlist(Atletas,[maikl,_,baloncesto,_]),
+inlist(Atletas,[saimon,israeli,_,_]),
+inlist(Atletas,[_,_,cricket,primero]),
+inlist(Atletas,[richard,_,_,_]),
+inlist(Atletas,[_,_,tenis,_]),
+inlist(Atletas,[_,americano,_,_]),
+inlist(Atletas,[_,australiano,_,_]),
+inlist(Atletas,[_,_,_,segundo]),
+inlist(Atletas,[_,_,_,tercero]),
+not(inlist(Atletas,[maikl,americano,_,_])),
+not(inlist(Atletas,[saimon,_,tenis,_])),
+
+inlist(Atletas,[Who1,australiano,_,_]),
+inlist(Atletas,[richard,_,Who2,_]),
+write('El australiano es '),write(Who1),nl,write('Richard es aficionado al '),write(Who2),!.
