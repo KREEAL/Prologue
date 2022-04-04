@@ -14,11 +14,6 @@ contains([], _):- !, fail.
 contains([H|_], H):- !.
 contains([_|T], N):- contains(T, N).
 
-count(_, [], 0):-!.
-count(Elem, List, X):- count(Elem, List, 0, X).
-count(_, [], Count, Count):- !.
-count(Elem, [Elem|T], Count, X):- Count1 is Count + 1, count(Elem, T, Count1, X), !.
-count(Elem, [_|T], Count, X):- count(Elem, T, Count, X).
 
 listleng([],0).
 listleng([_|T],I):-listleng(T,J),I is J + 1.
@@ -125,3 +120,41 @@ inlist(Workers,[slesar,Who1,_,_,_]),
 inlist(Workers,[tokar,Who2,_,_,_]),
 inlist(Workers,[svarshick,Who3,_,_,_]),
 write('slesar = '),write(Who1),nl,write('tokar = '),write(Who2),nl,write('svarshick = '),write(Who3),!.
+
+%Задание 17 В бутылке, стакане, кувшине и банке находятся молоко, лимонад, квас и вода. Известно, что вода и молоко не в бутылке, 
+%сосуд с лимонадом находится между кувшином и сосудом с квасом, в банке - не лимонад и не вода. Стакан находится около банки и сосуда с молоком.
+%Как распределены эти жидкости по сосудам.
+
+%B справа от A в C
+right(_,_,[_]):-fail.
+right(A,B,[A|[B|_]]).
+right(A,B,[_|List]):-right(A,B,List).
+
+%B слева от A в C
+left(_,_,[_]):-fail.
+left(A,B,[B|[A|_]]).
+left(A,B,[_|List]):-left(A,B,List).
+
+%B справаслеваслевасправа(около) A в C
+next(A,B,List):-right(A,B,List).
+next(A,B,List):-left(A,B,List).
+
+task17:- Drinks=[_,_,_,_],
+inlist(Drinks,[bottle,_]),
+inlist(Drinks,[glass,_]),
+inlist(Drinks,[kuvshin,_]),
+inlist(Drinks,[jar,_]),
+inlist(Drinks,[_,leche]),
+inlist(Drinks,[_,lemonade]),
+inlist(Drinks,[_,kvas]),
+inlist(Drinks,[_,agua]),
+not(inlist(Drinks,[bottle,leche])),
+not(inlist(Drinks,[bottle,agua])),
+not(inlist(Drinks,[jar,lemonade])),
+not(inlist(Drinks,[jar,agua])),
+right([kuvshin,_],[_,lemonade],Drinks),
+right([_,lemonade],[_,kvas],Drinks),
+next([glass,_],[jar,_],Drinks),
+next([glass,_],[_,leche],Drinks),
+
+write(Drinks),!.
