@@ -1,3 +1,5 @@
+%HELPFUL &&&&&&&&&&&&&&&&&&&&&&&&
+
 append([],X,X).
 append([X|T],Y,[X|T1]) :- append(T,Y,T1).
 
@@ -19,8 +21,28 @@ count(_, [], Count, Count):- !.
 count(Elem, [Elem|T], Count, X):- Count1 is Count + 1, count(Elem, T, Count1, X), !.
 count(Elem, [_|T], Count, X):- count(Elem, T, Count, X).
 
+listleng([],0).
+listleng([_|T],I):-listleng(T,J),I is J + 1.
+
+writelist([]):-!.
+writelist([H|T]):- write(H),write(' '),writelist(T).
+
+readlist(X,Y):-readlist([],X,0,Y).
+readlist(A,A,G,G):-!.
+readlist(A,B,C,D):- C1 is C+1,read(X),append(A,[X],A1),readlist(A1,B,C1,D).
+
+%HELPFUL &&&&&&&&&&&&&&&&&&&&&&&&
+
 %11(39) Дан целочисленный массив. Необходимо вывести вначале его элементы с четными индексами, а затем - с нечетными.
 
+chetnechet(L):-listleng(L,Len),chetnechet(L,0,Len,[],[]).
+chetnechet([],F,F,A,B):-append(A,B,C),writelist(C).
+chetnechet([H|T],In,Le,Ch,Nch):- In mod 2 =:= 0,append(Ch,[H],Ch1),In1 is In + 1,chetnechet(T,In1,Le,Ch1,Nch),!;append(Nch,[H],Nch1),In2 is In +1,chetnechet(T,In2,Le,Ch,Nch1),!.
+
+task11:- read(N),readlist(L,N),chetnechet(L),!.
+
 %12(45) Дан целочисленный массив и интервал a..b. Необходимо найти сумму элементов, значение которых попадает в этот интервал.
+
+
 
 %13(51) Для введенного списка построить два списка L1 и L2, где элементы L1 это неповторяющиеся элементы исходного списка, а элемент списка L2 с номером i показывает, сколько раз элемент списка L1 с таким номером повторяется в исходном.
