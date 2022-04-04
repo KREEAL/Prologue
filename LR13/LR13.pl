@@ -93,4 +93,21 @@ not(inlist(Hairs,[chernov,brunette])),
 not(inlist(Hairs,[rizhov,ginger])),
 write(Hairs),!.
 
-%Задание 15 
+%Задание 15 Три подруги вышли в белом, зеленом и синем платьях и туфлях. Известно, что только у Ани цвета платья и туфлей совпадали. Ни туфли,ни платье Вали не были белыми. Наташа была в зеленых туфлях. Определить цвета платья и туфель на каждой из подруг.
+
+task15:- Vertidos=[_,_,_],
+inlist(Vertidos,[ann,_,_]),
+inlist(Vertidos,[valya,_,_]),
+inlist(Vertidos,[natasha,_,_]),
+inlist(Vertidos,[_,white,_]),
+inlist(Vertidos,[_,green,_]),
+inlist(Vertidos,[_,blue,_]),
+inlist(Vertidos,[_,_,white]),
+inlist(Vertidos,[_,_,green]),
+inlist(Vertidos,[_,_,blue]),
+inlist(Vertidos,[natasha,_,green]),
+not(inlist(Vertidos,[valya,white,white])),
+not(inlist(Vertidos,[natasha,green,_])),
+write(Vertidos),!.
+
+
