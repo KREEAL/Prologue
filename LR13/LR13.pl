@@ -158,3 +158,30 @@ next([glass,_],[jar,_],Drinks),
 next([glass,_],[_,leche],Drinks),
 
 write(Drinks),!.
+
+/*
+Задание 18 Воронов, Павлов, Левицкий и Сахаров – четыре талантли-
+вых молодых человека. Один из них танцор, другой художник, третий-певец,
+а четвертый-писатель. О них известно следующее: Воронов и Левицкий си-
+дели в зале консерватории в тот вечер, когда певец дебютировал в сольном
+концерте. Павлов и писатель вместе позировали художнику. Писатель написал
+биографическую повесть о Сахарове и собирается написать о Воронове. Воро-
+нов никогда не слышал о Левицком. Кто чем занимается?*/
+
+task18:- Cheloveki=[_,_,_,_],
+inlist(Cheloveki,[pavlov,_]),
+inlist(Cheloveki,[levicki,_]),
+inlist(Cheloveki,[saharov,_]),
+inlist(Cheloveki,[voronov,_]),
+inlist(Cheloveki,[_,balarin]),
+inlist(Cheloveki,[_,pinter]),
+inlist(Cheloveki,[_,cantante]),
+inlist(Cheloveki,[_,escritor]),
+not(inlist(Cheloveki,[saharov,escritor])),
+not(inlist(Cheloveki,[voronov,escritor])),
+not(inlist(Cheloveki,[voronov,cantante])),
+not(inlist(Cheloveki,[pavlov,escritor])),
+not(inlist(Cheloveki,[pavlov,pinter])),
+not(inlist(Cheloveki,[voronov,pinter])),
+
+write(Cheloveki),!.
