@@ -1,3 +1,6 @@
+append([],X,X).
+append([X|T],Y,[X|T1]) :- append(T,Y,T1).
+
 %11 maximalnii prostoy delitel chisla
 easy(X):-easy(2,X).
 easy(X,X):-!.
@@ -44,9 +47,9 @@ der2(X,R):-
 	
 %делит на 5 пока делится
 der5(5,1):-!.
-der5(4,1):-!.
-der5(3,1):-!.
-der5(2,1):-!.
+der5(4,4):-!.
+der5(3,3):-!.
+der5(2,2):-!.
 der5(1,1):-!.
 der5(X,R):- 
 	X1 is X div 5,
@@ -54,10 +57,14 @@ der5(X,R):-
 	der5(X1,R1),!,
 	(Os = 0,R is R1;R is X),!.
 
+%период дроби 1/X
+periodL(X,L):-der2(X,R2),der5(R2,R5),periodL(R5,L,0,1).
+periodL(_,G,G,0):-!.
+periodL(N,L,K,R):-K1 is K + 1,R1 is (R * 10) mod N, R1=\=1,R1=\=0,periodL(N,L,K1,R1),!;Ka1 is K+1,periodL(N,L,Ka1,0),!.
 
-periodL(X,L):-X1 is X,der2(X1,R2),der5(R2,R5),periodL(R5,L,0,1).
-periodL(_,G,G,1):-!.
-periodL(N,L,K,R):- R > 1, R1 is (R * 10)  mod N,K1 is K + 1,!,periodL(N,L,K1,R1);periodL(N,L,K,0).
+findtotis(A):-findtotis(A,0,0,1).
+findtotis(G,G,_,1000):-!.
+findtotis(A,Ch,Ma,Co):-periodL(Co,Res),Res>Ma,Ma1 is Res,Ch1 is Co,Co1 is Co + 1,!,findtotis(A,Ch1,Ma1,Co1);Co2 is Co + 1,findtotis(A,Ch,Ma,Co2),!.
 
 %14 получить длину списка
 
