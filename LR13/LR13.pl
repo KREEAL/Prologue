@@ -110,4 +110,18 @@ not(inlist(Vertidos,[valya,white,white])),
 not(inlist(Vertidos,[natasha,green,_])),
 write(Vertidos),!.
 
+%Задание 16 На заводе работали три друга: слесарь, токарь и сварщик. Их фамилии Борисов, Иванов и Семенов. У слесаря нет ни братьев, ни сестер. Он
+%самый младший из друзей. Семенов, женатый на сестре Борисова, старше токаря. Назвать фамилии слесаря, токаря и сварщика.
 
+task16:- Workers = [_,_,_],
+%inlist(Workers,[slesar,borisov,kolvo_bratev,vozrast,rodstvennik]),
+inlist(Workers,[slesar,_,0,0,_]),
+inlist(Workers,[tokar,_,_,1,_]),
+inlist(Workers,[svarshick,_,_,_,_]),
+inlist(Workers,[_,semenov,_,2,borisov]),
+inlist(Workers,[_,ivanov,_,_,_]),
+inlist(Workers,[_,borisov,1,_,_]),
+inlist(Workers,[slesar,Who1,_,_,_]),
+inlist(Workers,[tokar,Who2,_,_,_]),
+inlist(Workers,[svarshick,Who3,_,_,_]),
+write('slesar = '),write(Who1),nl,write('tokar = '),write(Who2),nl,write('svarshick = '),write(Who3),!.
