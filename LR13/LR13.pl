@@ -209,3 +209,27 @@ not(inlist(Atletas,[saimon,_,tenis,_])),
 inlist(Atletas,[Who1,australiano,_,_]),
 inlist(Atletas,[richard,_,Who2,_]),
 write('El australiano es '),write(Who1),nl,write('Richard es aficionado al '),write(Who2),!.
+/*
+%20. Вариант 3 Три друга – Петр, Роман и Сергей учатся на математическом,
+физическом и химическом факультетах университета. Если Петр математик,
+то Сергей не физик. Если Роман не физик, то Петр – математик. Если Сергей
+не математик, то Роман – химик. Где учится Роман?*/
+/* Перепишем условие
+Вариант 3 Три друга – Петр, Роман и Сергей учатся на математическом,
+физическом и химическом факультетах университета. Если Петр математик,
+то Сергей химик. Если Роман химик, то Петр – математик. Если Сергей
+физик, то Роман – химик. Где учится Роман?*/
+
+task20:- Amigos = [_,_,_],
+%inlist(Amigos,[pyotr,roman,sergey,matem,fisica,quimia]),
+inlist(Amigos,[pyotr,_]),
+inlist(Amigos,[roman,_]),
+inlist(Amigos,[sergey,_]),
+inlist(Amigos,[_,matem]),
+inlist(Amigos,[_,fisica]),
+inlist(Amigos,[_,quimia]),
+not(inlist(Amigos,[pyotr,matem])),
+not(inlist(Amigos,[pyotr,fisica])),
+not(inlist(Amigos,[roman,matem])),
+write(Amigos),!.
+
