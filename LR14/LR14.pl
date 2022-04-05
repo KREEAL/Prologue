@@ -29,7 +29,7 @@ symbolsstring([_|T],S,C):-C1 is C + 1, symbolsstring(T,S,C1),!.
 
 task1_1:-read_str(A,X,0),write_str(A),write(", "),write_str(A),write(", "),write_str(A),write(" , "),write(X).
 
-%2
+%2 
 task1_2:-read_str(A,_),countwords(A,K),write(K).
 
 countwords(A,C):-countwords(A,0,C).
