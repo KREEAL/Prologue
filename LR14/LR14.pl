@@ -116,7 +116,8 @@ show_match([Elem|Tail],Elem,I):-write(I),nl,I1 is I+1,show_match(Tail,Elem,I1),!
 show_match([_|Tail],Elem,I):-I1 is I+1,show_match(Tail,Elem,I1).
 
 /*******************************************************************************************************/
-
+%Задание 2
+%1
 task2_1:-	see('D:/prologue/PrologLabFilp/LR14/2_1i.txt'),read_list_str(List),formlenlist(List,ListB),maxel(ListB,El),seen,
 	tell('D:/prologue/PrologLabFilp/LR14/2_1o.txt'), write(El),told.
 	
@@ -133,3 +134,16 @@ maxel([H|T],X,Mx,El):-H>Mx,!,append(X,T,List1),maxel(T,List1,H,El);append(X,T,Li
 
 writelist([]):-!.
 writelist([H|T]):- write(H),write(' '),writelist(T).
+
+%2
+task2_2:-see('D:/prologue/PrologLabFilp/LR14/2_2i.txt'),read_list_str(List),countwnospaces(List,C),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/2_2o.txt'), write(C),told.
+	
+	
+countwnospaces(Liststr,C):-countwnospaces(Liststr,C,0).
+countwnospaces([],G,G):-!.
+countwnospaces([H|T],C,K):-spacesexist(H,Bool),Bool=0,K1 is K + 1, countwnospaces(T,C,K1),!;countwnospaces(T,C,K).
+
+spacesexist(Word,Bool):-spacesexist(Word,Bool,0).
+spacesexist([],B,B):-!.
+spacesexist([H|T],Bool,C):- H=:=32,C1 is C+1,spacesexist(T,Bool,C1),!;spacesexist(T,Bool,C).
