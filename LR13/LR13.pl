@@ -3,13 +3,6 @@
 append([],X,X).
 append([X|T],Y,[X|T1]) :- append(T,Y,T1).
 
-unique_elems([], []):- !.
-unique_elems([H|T], List2):- unique_elems([H|T], List2, []).
-unique_elems([], CurList, CurList):- !.
-unique_elems([H|T], List, []):- unique_elems(T, List, [H]), !.
-unique_elems([H|T], List, CurList):- not(contains(CurList, H)), append(CurList, [H], NewList), unique_elems(T, List, NewList), !.
-unique_elems([_|T], List, CurList):- unique_elems(T, List, CurList).
-
 contains([], _):- !, fail.
 contains([H|_], H):- !.
 contains([_|T], N):- contains(T, N).
