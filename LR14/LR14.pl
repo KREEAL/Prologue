@@ -116,3 +116,20 @@ show_match([Elem|Tail],Elem,I):-write(I),nl,I1 is I+1,show_match(Tail,Elem,I1),!
 show_match([_|Tail],Elem,I):-I1 is I+1,show_match(Tail,Elem,I1).
 
 /*******************************************************************************************************/
+
+task2_1:-	see('D:/prologue/PrologLabFilp/LR14/2_1i.txt'),read_list_str(List),formlenlist(List,ListB),maxel(ListB,El),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/2_1o.txt'), write(El),told.
+	
+listleng([],0).
+listleng([_|T],I):-listleng(T,J),I is J + 1.
+
+formlenlist(ListA,ListB):-formlenlist(ListA,ListB,[]).
+formlenlist([],K,K):-!.
+formlenlist([H|T],B,C):-listleng(H,Len),Len2 is Len/2,append(C,[Len2],C1),formlenlist(T,B,C1).
+
+maxel(L,El):-maxel(L,[],-999,El).
+maxel([],_,M,M):-!.
+maxel([H|T],X,Mx,El):-H>Mx,!,append(X,T,List1),maxel(T,List1,H,El);append(X,T,List2),!,maxel(T,List2,Mx,El).
+
+writelist([]):-!.
+writelist([H|T]):- write(H),write(' '),writelist(T).
