@@ -221,3 +221,27 @@ palindrome([], [], _):-!.
 palindrome(_, _, N):-N < 0, !, fail.
 palindrome([H|T1], [H|T2], N):-!, palindrome(T1, T2, N).
 palindrome([_|T1], [_|T2], N):-NN is N - 1, palindrome(T1, T2, NN).
+
+%18Найти в тексте даты формата «день.месяц.год».
+
+%1=49,2=50,3=51.=46
+task5:-	see('D:/prologue/PrologLabFilp/LR14/5i.txt'),read_list_str(List),findalldatas(List,Dts),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/5o.txt'), write_str(Dts),told.
+
+findalldatas(Strlist,Datas):-findalldatas(Strlist,Datas,[]).
+findalldatas([],W,W):-!.
+findalldatas([H|T],Datas,Tmp):-finddatas(H,D),append(Tmp,D,Tmp1),findalldatas(T,Datas,Tmp1),!.
+
+
+finddatas(Str,Datas):-finddatas(Str,Datas,[]).
+finddatas([],D,D):-!.
+finddatas(Str,Datas,Temp):-listleng(Str,Len),Len>9,srez(Str,0,9,Dnew),isDate(Dnew,Bool),Len1 is Len -1, srez(Str,1,Len1,Strnew),!,
+(Bool=:=1,append(Temp,Dnew,Temp1),append(Temp1,[32],Temp2),finddatas(Strnew,Datas,Temp2),!;finddatas(Strnew,Datas,Temp),!);finddatas([],Datas,Temp),!.
+
+
+isDate(Str,B):-isDate(Str,B,1).
+isDate([],A,A):-!.
+isDate(Str,B,K):-elbyindex(Str,0,Day1),elbyindex(Str,1,Day2),elbyindex(Str,2,Dot1),elbyindex(Str,3,Mon1),elbyindex(Str,4,Mon2),
+	elbyindex(Str,5,Dot2),elbyindex(Str,6,Y1),elbyindex(Str,7,Y2),elbyindex(Str,8,Y3),elbyindex(Str,8,Y4),
+	Day1>47,Day1 < 52,Day2>47,Day2<58,Dot1=:=46,Mon1>47,Mon1 < 51,Mon2 >47,Mon2 < 58,
+	Dot2=:=46,Y1>47,Y2>47,Y3>47,Y4>47,Y1<58,Y2<58,Y3<58,Y4<58,K1 is K * 1,isDate([],B,K1),!;K2 is K * 0,isDate([],B,K2),!.
