@@ -147,3 +147,26 @@ countwnospaces([H|T],C,K):-spacesexist(H,Bool),Bool=0,K1 is K + 1, countwnospace
 spacesexist(Word,Bool):-spacesexist(Word,Bool,0).
 spacesexist([],B,B):-!.
 spacesexist([H|T],Bool,C):- H=:=32,C1 is C+1,spacesexist(T,Bool,C1),!;spacesexist(T,Bool,C).
+
+%3
+task2_3:-see('D:/prologue/PrologLabFilp/LR14/2_3i.txt'),read_list_str(List),counta(List,C),average(C,Ave),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/2_3o.txt'), biggera(List,Ave),told.
+
+%Кол-во А по строкам
+counta(L,C):-counta(L,0,C).
+counta([],K,K):-!.
+counta([H|T],I,Lc):-ainstr(H,Coua),append(I,[Coua],I1),counta(T,I1,Lc).
+	
+%kolvo A в строке
+ainstr(L,N):-ainstr(L,0,N).
+ainstr([],N,N):-!.
+ainstr([H|T],I,N):-(H is 65->I1 is I+1,ainstr(T,I1,N),!;ainstr(T,I,N)).
+
+%Среднее значение списка
+average(List,Ave):-average(List,0,Sum,0,N),Ave is Sum div N.
+average([],Sum,Sum,N,N):-!.
+average([H|T],I_Sum,Sum,I_N,N):-Sum1 is I_Sum+H,N1 is I_N+1, average(T,Sum1,Sum,N1,N).
+
+biggera([],_):-!.
+biggera([H|T],Ave):-ainstr(H,CountA),(CountA>Ave->name(H1,H),write_str(H1),biggera(T,Ave),!;biggera(T,Ave),!).
+
