@@ -102,3 +102,17 @@ srez(_,_,O2,Res,O2,Res):-!.
 srez([_|T],I1,I2,R,Ci,Lis):- Curi is Ci + 1, Curi<I1,!,srez(T,I1,I2,R,Curi,Lis).%до I1
 srez([_|_],I1,I2,R,Ci,Lis):- Curi is Ci + 1, Curi>I2,!,srez([],I1,Curi,R,Curi,Lis).%после I2
 srez([H|T],I1,I2,R,Ci,Lis):- Curi is Ci + 1, append(Lis,[H],List),!,srez(T,I1,I2,R,Curi,List).%между I1 и I2
+
+%5
+task1_5:- read_str(A,N),N1 is N-1, elbyindex(A,N1,El),show(A,El).
+
+show(List,El):-show(List,El,0).
+show([_],_,_):-!.
+show([El|T],El,I):-write(I),write(' '),I1 is I + 1, show(T,El,I1),!.
+show([_|T],El,I):-I1 is I+1,show(T,El,I1).
+
+show_match([_],_,_):-!.
+show_match([Elem|Tail],Elem,I):-write(I),nl,I1 is I+1,show_match(Tail,Elem,I1),!.
+show_match([_|Tail],Elem,I):-I1 is I+1,show_match(Tail,Elem,I1).
+
+/*******************************************************************************************************/
