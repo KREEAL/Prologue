@@ -23,11 +23,13 @@ append([X|T],Y,[X|T1]) :- append(T,Y,T1).
 
 %Задание 1
 %1
+task1_1:-read_str(A,X,0),write_str(A),write(", "),write_str(A),write(", "),write_str(A),write(" , "),write(X).
+
 symbolsstring(A,S):-symbolsstring(A,S,0).
 symbolsstring([],G,G):-!.
 symbolsstring([_|T],S,C):-C1 is C + 1, symbolsstring(T,S,C1),!.
 
-task1_1:-read_str(A,X,0),write_str(A),write(", "),write_str(A),write(", "),write_str(A),write(" , "),write(X).
+
 
 %2 
 task1_2:-read_str(A,_),countwords(A,K),write(K).
@@ -185,3 +187,18 @@ getindex(L,El,I):-getindex(L,El,I,0).
 getindex([],_,G,G):-!.
 getindex([H|T],El,I,C):- H=\=El,C1 is C + 1,!,getindex(T,El,I,C1);getindex([],El,I,C),!.
 
+%5
+	
+%я шота условие не понял
+
+/****************************************************************************************************/
+
+%Задание 3(1) Дана строка. Необходимо найти общее количество русских символов.
+
+task3:-read_str(A,_),countrusskie(A,C),write(C).
+
+%1040-1103 = русские 
+
+countrusskie(A,C):-countrusskie(A,C,0).
+countrusskie([],G,G):-!.
+countrusskie([H|T],C,I):- H > 1039,H < 1104,I1 is I + 1,countrusskie(T,C,I1),!;countrusskie(T,C,I),!.
