@@ -45,3 +45,45 @@ getword(A,Word,A2):-getword(A,[],Word,A2).
 getword([],Word,Word,[]).
 getword([32|T],Word,Word,T):-!.
 getword([H|T],W,Word,A2):-append(W,[H],W1),getword(T,W1,Word,A2).
+
+%3
+task1_3:-read_str(A,N),getwords(A,Words,K),unique(Words,Uwords),
+		counts(Uwords,C,Words),indOfMax(C,Ind),elbyindex(Uwords,Ind,El), write_str(El).
+
+getwords(A,Words,K):-getwords(A,[],Words,0,K).
+getwords([],B,B,K,K):-!.
+getwords(A,Temp,B,I,K):- skipspace(A,A1),getword(A1,Word,A2),Word \=[],
+		I1 is I+1,append(Temp,[Word],Tw),getwords(A2,Tw,B,I1,K),!.
+getwords(_,B,B,K,K).
+
+counts([],[],_):-!.
+counts([Word|Twords],[Count|Tcounts],Words):-
+	count(Word,Words,Count),counts(Twords,Tcounts,Words).
+
+count(_, [], 0):-!.
+count(Elem, List, X):- count(Elem, List, 0, X).
+count(_, [], Count, Count):- !.
+count(Elem, [Elem|T], Count, X):- Count1 is Count + 1, count(Elem, T, Count1, X), !.
+count(Elem, [_|T], Count, X):- count(Elem, T, Count, X).
+
+elbyindex(L,I,El):-elbyindex(L,I,El,0).
+elbyindex([H|_],K,H,K):-!.
+elbyindex([_|Tail],I,El,Cou):- I =:= Cou,elbyindex(Tail,Cou,El,Cou);Cou1 is Cou + 1, elbyindex(Tail,I,El,Cou1).
+
+indOfMax(X,Y):-indexOfMin(X,Y).
+indexOfMin([], -1):- !.
+indexOfMin([H|T], X):-indexOfMin(T, 1, 1, X, H).
+indexOfMin([], _, MinInd, MinInd, _):-!.
+indexOfMin([H|T], CurInd, _, X, CurMin):- H > CurMin, NewCurInd is CurInd + 1, indexOfMin(T, NewCurInd, NewCurInd, X, H), !.
+indexOfMin([_|T], CurInd, MinInd, X, CurMin):- NewCurInd is CurInd + 1, indexOfMin(T, NewCurInd, MinInd, X, CurMin).
+
+unique([],[]):- !.
+unique([H|T],L):-unique([H|T],L,[]).
+unique([],Lis,Lis):-!.
+unique([H|T],List,[]):-unique(T,List,[H]),!.
+unique([H|T],List,List1):-not(contains(List1,H)),append(List1,[H],List2),unique(T,List,List2),!.
+unique([_|T],List,List1):-unique(T,List,List1).
+
+contains([], _):- !, fail.
+contains([H|_], H):- !.
+contains([_|T], N):- contains(T, N).
