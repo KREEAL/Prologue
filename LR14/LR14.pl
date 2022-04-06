@@ -202,3 +202,22 @@ task3:-read_str(A,_),countrusskie(A,C),write(C).
 countrusskie(A,C):-countrusskie(A,C,0).
 countrusskie([],G,G):-!.
 countrusskie([H|T],C,I):- H > 1039,H < 1104,I1 is I + 1,countrusskie(T,C,I1),!;countrusskie(T,C,I),!.
+
+%Задание 4(9) Дана строка. Необходимо проверить образуют ли строчные символы латиницы палиндром.
+
+task4:-read_str(A,_,0),staylatina(A,New),write_str(New),reverse(New,Revnew),palindrome(New,Revnew,0).
+
+%97-122 строчные латинцы
+
+staylatina(Str,New):-staylatina(Str,New,[]).
+staylatina([],S,S):-!.
+staylatina([H|T],N,Acc):- H>96, H< 123, append(Acc,[H],Acc1),!,staylatina(T,N,Acc1);staylatina(T,N,Acc),!.
+
+reverse(A, Z):-reverse(A,Z,[]).
+reverse([],Z,Z).
+reverse([H|T],Z,Acc):-reverse(T,Z,[H|Acc]).
+
+palindrome([], [], _):-!.
+palindrome(_, _, N):-N < 0, !, fail.
+palindrome([H|T1], [H|T2], N):-!, palindrome(T1, T2, N).
+palindrome([_|T1], [_|T2], N):-NN is N - 1, palindrome(T1, T2, NN).
