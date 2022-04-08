@@ -360,3 +360,18 @@ tworepeated(List,_,Res):-tworepeated(List,_,Res,[]).
 tworepeated([],_,R,R):-!.
 tworepeated([H|T],_,Res,Temp):- unique(H,Uniq),pointer(H,Uniq,Freqlist), frequency(Freqlist,1,Coun1),Coun1=:=3,frequency(Freqlist,2,Coun2),Coun2=:=1,
 append(Temp,[H],Temp1),tworepeated(T,_,Res,Temp1);tworepeated(T,_,Res,Temp).
+
+/*
+%10 Дано множество {a,b,c,d,e,f}. Построить все слова длины 6, в которых ровно 2 буквы повторяются 2 раза, остальные буквы не повторяются. Вывод в файл.
+*/
+task10:-see('D:/prologue/PrologLabFilp/LR14/10i.txt'),read_list_str(A),elbyindex(A,0,A1),elbyindex(A,1,K1),name(K,K1),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/10o.txt'),
+	not(b_a_rp(A1,K,[])),nl,!,
+	told,
+	see('D:/prologue/PrologLabFilp/LR14/10o.txt'),read_list_str(List),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/10o.txt'),tworepeatedtwice(List,Res),write_list_str(Res),told.
+
+tworepeatedtwice(List,Res):-tworepeatedtwice(List,Res,[]).
+tworepeatedtwice([],R,R):-!.
+tworepeatedtwice([H|T],Res,Temp):- unique(H,Uniq),pointer(H,Uniq,Freqlist),frequency(Freqlist,1,Coun1),Coun1=:=2,!,frequency(Freqlist,2,Coun2),Coun2=:=2,
+append(Temp,[H],Temp1),tworepeatedtwice(T,Res,Temp1);tworepeatedtwice(T,Res,Temp).
