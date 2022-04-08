@@ -245,3 +245,64 @@ isDate(Str,B,K):-elbyindex(Str,0,Day1),elbyindex(Str,1,Day2),elbyindex(Str,2,Dot
 	elbyindex(Str,5,Dot2),elbyindex(Str,6,Y1),elbyindex(Str,7,Y2),elbyindex(Str,8,Y3),elbyindex(Str,8,Y4),
 	Day1>47,Day1 < 52,Day2>47,Day2<58,Dot1=:=46,Mon1>47,Mon1 < 51,Mon2 >47,Mon2 < 58,
 	Dot2=:=46,Y1>47,Y2>47,Y3>47,Y4>47,Y1<58,Y2<58,Y3<58,Y4<58,K1 is K * 1,isDate([],B,K1),!;K2 is K * 0,isDate([],B,K2),!.
+	
+/**************************************нормальные задания кончились**********************************************************/
+
+task6:-see('D:/prologue/PrologLabFilp/LR14/6i.txt'),read_list_str(A),elbyindex(A,0,A1),elbyindex(A,1,K1),name(K,K1),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/6o.txt'),
+	write('Razmesheniya s povotorenijami po k'),nl,
+	not(b_a_rp(A1,K,[])),nl,!,
+	write('Perestanovki'),nl,
+	not(b_a_p(A1,[])),nl,!,
+	%write('Razmesheniya po k'),nl,
+	%not(b_a_r(A1,K,[])),nl,!,
+	write('Vse podmnojestva'),
+	not((sub_set(B,A1),write_str(B),nl,fail)),nl,
+	write('Sochetanija po k'),nl,
+	not((sochet(B,K,A1),write_str(B),nl,fail)),nl,
+	write('Sochetanija s povotorenijami'),nl,
+	not((sochet_p(B,K,A1),write_str(B),nl,fail)),nl,
+	told.
+
+
+build_all_razm_p:-
+		read_str(A,N),read(K),b_a_rp(A,K,[]).
+		
+b_a_rp(A,0,Perm1):-write_str(Perm1),nl,!,fail.
+b_a_rp(A,N,Perm):-inlist(A,El),N1 is N-1,b_a_rp(A,N1,[El|Perm]).
+
+build_all_perm:-
+		read_str(A,N),b_a_p(A,[]).
+
+inlistexlude([El|T],El,T).
+inlistexlude([H|T],El,[H|Tail]):-inlistexlude(T,El,Tail).
+
+b_a_p([],Perm1):-write_str(Perm1),nl,!,fail.
+b_a_p(A,Perm):-inlistexlude(A,El,A1),b_a_p(A1,[El|Perm]).
+
+build_all_razm:-
+		read_str(A,N),read(K),b_a_r(A,K,[]).
+		
+b_a_r(A,0,Perm1):-write_str(Perm1),nl,!,fail.
+b_a_r(A,N,Perm):-inlistexlude(A,El),N1 is N-1,b_a_r(A,N1,[El|Perm]).
+
+sub_set([],[]).
+sub_set([H|Sub_set],[H|Set]):-sub_set(Sub_set,Set).
+sub_set(Sub_set,[H|Set]):-sub_set(Sub_set,Set).
+pr_subset:-read_str(A,N),sub_set(B,A),write_str(B),nl,fail.
+qa:-not(pr_subset),write(yes),!;write(no).
+
+
+sochet([],0,_):-!.
+sochet([H|Sub_set],K,[H|Set]):-K1 is K-1,sochet(Sub_set,K1,Set).
+sochet(Sub_set,K,[_|Set]):-sochet(Sub_set,K,Set).
+pr_sochet:-read_str(A,N),read(K),sochet(B,K,A),write_str(B),nl,fail.
+
+sochet_p([],0,_):-!.
+sochet_p([H|Sub_set],K,[H|Set]):-K1 is K-1,sochet_p(Sub_set,K1,[H|Set]).
+sochet_p(Sub_set,K,[_|Set]):-sochet_p(Sub_set,K,Set).
+pr_sochet_p:-read_str(A,N),read(K),sochet_p(B,K,A),write_str(B),nl,fail.
+
+inlist([],_):-fail.
+inlist([X|_],X).
+inlist([_|T],X):-inlist(T,X).
