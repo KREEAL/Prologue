@@ -322,3 +322,27 @@ onlytwoa([H|T],List1,Temp):-smallainstr(H,Kol),Kol =:= 2,!,append(Temp,[H],Temp1
 smallainstr(L,N):-smallainstr(L,0,N).
 smallainstr([],N,N):-!.
 smallainstr([H|T],I,N):-(H is 97->I1 is I+1,smallainstr(T,I1,N),!;smallainstr(T,I,N)).
+
+%8 Дано множество {a,b,c,d,e,f}. Построить все слова длины 5, вкоторых ровно 2 буквы a, остальные буквы не повторяются. Вывод в файл.
+
+task8:-see('D:/prologue/PrologLabFilp/LR14/7_9i.txt'),read_list_str(A),elbyindex(A,0,A1),elbyindex(A,1,K1),name(K,K1),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/7_9o.txt'),
+	not(b_a_rp(A1,K,[])),nl,!,
+	told,
+	see('D:/prologue/PrologLabFilp/LR14/7_9o.txt'),read_list_str(List),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/7_9o.txt'),notrepeatbut(List,97,Res),write_list_str(Res),told.
+
+notrepeatbut(List,_,Res):-notrepeatbut(List,_,Res,[]).
+notrepeatbut([],_,R,R):-!.
+notrepeatbut([H|T],_,Res,Temp):- smallainstr(H,N),N=:=2,unique(H,Uniq),pointer(H,Uniq,Freqlist), frequency(Freqlist,1,Coun),Coun=:=3,
+append(Temp,[H],Temp1),notrepeatbut(T,_,Res,Temp1);notrepeatbut(T,_,Res,Temp).
+
+%лист частот делает
+pointer(Common,Uniq,Res):-pointer(Common,Uniq,Res,[]).
+pointer(_,[],R,R):-!.
+pointer(Common,[H|T],Res,Acc):-frequency(Common,H,F),F1 is F,append(Acc,[F1],Acc1),pointer(Common,T,Res,Acc1).
+
+
+frequency(L,El,F):- frequency(L,El,F,0).
+frequency([],_,G,G):-!.
+frequency([H|T],El,F,C):-H=:=El, C1 is C + 1,!,frequency(T,El,F,C1);frequency(T,El,F,C),!.
