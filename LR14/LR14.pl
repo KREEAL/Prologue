@@ -264,15 +264,14 @@ task6:-see('D:/prologue/PrologLabFilp/LR14/6i.txt'),read_list_str(A),elbyindex(A
 	not((sochet_p(B,K,A1),write_str(B),nl,fail)),nl,
 	told.
 
-
 build_all_razm_p:-
-		read_str(A,N),read(K),b_a_rp(A,K,[]).
+		read_str(A,_),read(K),b_a_rp(A,K,[]).
 		
-b_a_rp(A,0,Perm1):-write_str(Perm1),nl,!,fail.
+b_a_rp(_,0,Perm1):-write_str(Perm1),nl,!,fail.
 b_a_rp(A,N,Perm):-inlist(A,El),N1 is N-1,b_a_rp(A,N1,[El|Perm]).
 
 build_all_perm:-
-		read_str(A,N),b_a_p(A,[]).
+		read_str(A,_),b_a_p(A,[]).
 
 inlistexlude([El|T],El,T).
 inlistexlude([H|T],El,[H|Tail]):-inlistexlude(T,El,Tail).
@@ -281,28 +280,45 @@ b_a_p([],Perm1):-write_str(Perm1),nl,!,fail.
 b_a_p(A,Perm):-inlistexlude(A,El,A1),b_a_p(A1,[El|Perm]).
 
 build_all_razm:-
-		read_str(A,N),K is 3,b_a_r(A,K,[]).
+		read_str(A,_),K is 3,b_a_r(A,K,[]).
 		
-b_a_r(A,0,Perm1):-write_str(Perm1),nl,!,fail.
+b_a_r(_,0,Perm1):-write_str(Perm1),nl,!,fail.
 b_a_r(A,N,Perm):-inlistexlude(A,El,_),N1 is N-1,b_a_r(A,N1,[El|Perm]).
 
 sub_set([],[]).
 sub_set([H|Sub_set],[H|Set]):-sub_set(Sub_set,Set).
-sub_set(Sub_set,[H|Set]):-sub_set(Sub_set,Set).
-pr_subset:-read_str(A,N),sub_set(B,A),write_str(B),nl,fail.
+sub_set(Sub_set,[_|Set]):-sub_set(Sub_set,Set).
+pr_subset:-read_str(A,_),sub_set(B,A),write_str(B),nl,fail.
 qa:-not(pr_subset),write(yes),!;write(no).
 
 
 sochet([],0,_):-!.
 sochet([H|Sub_set],K,[H|Set]):-K1 is K-1,sochet(Sub_set,K1,Set).
 sochet(Sub_set,K,[_|Set]):-sochet(Sub_set,K,Set).
-pr_sochet:-read_str(A,N),read(K),sochet(B,K,A),write_str(B),nl,fail.
+pr_sochet:-read_str(A,_),read(K),sochet(B,K,A),write_str(B),nl,fail.
 
 sochet_p([],0,_):-!.
 sochet_p([H|Sub_set],K,[H|Set]):-K1 is K-1,sochet_p(Sub_set,K1,[H|Set]).
 sochet_p(Sub_set,K,[_|Set]):-sochet_p(Sub_set,K,Set).
-pr_sochet_p:-read_str(A,N),read(K),sochet_p(B,K,A),write_str(B),nl,fail.
+pr_sochet_p:-read_str(A,_),read(K),sochet_p(B,K,A),write_str(B),nl,fail.
 
 inlist([],_):-fail.
 inlist([X|_],X).
 inlist([_|T],X):-inlist(T,X).
+
+%7Дано множество {a,b,c,d,e,f}. Построить все слова длины 5, в которых ровно две буквы a. Вывод в файл.
+
+task7:-see('D:/prologue/PrologLabFilp/LR14/7_9i.txt'),read_list_str(A),elbyindex(A,0,A1),elbyindex(A,1,K1),name(K,K1),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/7_9o.txt'),
+	not(b_a_rp(A1,K,[])),nl,!,
+	told,
+	see('D:/prologue/PrologLabFilp/LR14/7_9o.txt'),read_list_str(List),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/7_9o.txt'),onlytwoa(List,Res),write_list_str(Res),told.
+	
+onlytwoa(List,List1):-onlytwoa(List,List1,[]).
+onlytwoa([],G,G):-!.
+onlytwoa([H|T],List1,Temp):-smallainstr(H,Kol),Kol =:= 2,!,append(Temp,[H],Temp1),onlytwoa(T,List1,Temp1);onlytwoa(T,List1,Temp).
+
+smallainstr(L,N):-smallainstr(L,0,N).
+smallainstr([],N,N):-!.
+smallainstr([H|T],I,N):-(H is 97->I1 is I+1,smallainstr(T,I1,N),!;smallainstr(T,I,N)).
