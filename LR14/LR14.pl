@@ -254,8 +254,8 @@ task6:-see('D:/prologue/PrologLabFilp/LR14/6i.txt'),read_list_str(A),elbyindex(A
 	not(b_a_rp(A1,K,[])),nl,!,
 	write('Perestanovki'),nl,
 	not(b_a_p(A1,[])),nl,!,
-	%write('Razmesheniya po k'),nl,
-	%not(b_a_r(A1,K,[])),nl,!,
+	write('Razmesheniya po k'),nl,
+	not(b_a_r(A1,K,[])),nl,!,
 	write('Vse podmnojestva'),
 	not((sub_set(B,A1),write_str(B),nl,fail)),nl,
 	write('Sochetanija po k'),nl,
@@ -281,10 +281,10 @@ b_a_p([],Perm1):-write_str(Perm1),nl,!,fail.
 b_a_p(A,Perm):-inlistexlude(A,El,A1),b_a_p(A1,[El|Perm]).
 
 build_all_razm:-
-		read_str(A,N),read(K),b_a_r(A,K,[]).
+		read_str(A,N),K is 3,b_a_r(A,K,[]).
 		
 b_a_r(A,0,Perm1):-write_str(Perm1),nl,!,fail.
-b_a_r(A,N,Perm):-inlistexlude(A,El),N1 is N-1,b_a_r(A,N1,[El|Perm]).
+b_a_r(A,N,Perm):-inlistexlude(A,El,_),N1 is N-1,b_a_r(A,N1,[El|Perm]).
 
 sub_set([],[]).
 sub_set([H|Sub_set],[H|Set]):-sub_set(Sub_set,Set).
