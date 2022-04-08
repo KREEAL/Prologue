@@ -346,3 +346,17 @@ pointer(Common,[H|T],Res,Acc):-frequency(Common,H,F),F1 is F,append(Acc,[F1],Acc
 frequency(L,El,F):- frequency(L,El,F,0).
 frequency([],_,G,G):-!.
 frequency([H|T],El,F,C):-H=:=El, C1 is C + 1,!,frequency(T,El,F,C1);frequency(T,El,F,C),!.
+
+%9 Задание 9 Дано множество {a,b,c,d,e,f}. Построить все слова длины 5, в которых ровно одна буква повторяется 2 раза, остальные буквы не повторяются. Вывод в файл.
+
+task9:-see('D:/prologue/PrologLabFilp/LR14/7_9i.txt'),read_list_str(A),elbyindex(A,0,A1),elbyindex(A,1,K1),name(K,K1),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/7_9o.txt'),
+	not(b_a_rp(A1,K,[])),nl,!,
+	told,
+	see('D:/prologue/PrologLabFilp/LR14/7_9o.txt'),read_list_str(List),seen,
+	tell('D:/prologue/PrologLabFilp/LR14/7_9o.txt'),tworepeated(List,_,Res),write_list_str(Res),told.
+
+tworepeated(List,_,Res):-tworepeated(List,_,Res,[]).
+tworepeated([],_,R,R):-!.
+tworepeated([H|T],_,Res,Temp):- unique(H,Uniq),pointer(H,Uniq,Freqlist), frequency(Freqlist,1,Coun1),Coun1=:=3,frequency(Freqlist,2,Coun2),Coun2=:=1,
+append(Temp,[H],Temp1),tworepeated(T,_,Res,Temp1);tworepeated(T,_,Res,Temp).
