@@ -221,8 +221,9 @@ inlist(Amigos,[sergey,_]),
 inlist(Amigos,[_,matem]),
 inlist(Amigos,[_,fisica]),
 inlist(Amigos,[_,quimia]),
-not(inlist(Amigos,[pyotr,matem])),
-not(inlist(Amigos,[pyotr,fisica])),
-not(inlist(Amigos,[roman,matem])),
-write(Amigos),!.
+(not(inlist(Amigos,[pyotr,matem]));inlist(Amigos,[sergey,fisica])),
+((inlist(Amigos,[roman,fisica]));(inlist(Amigos,[pyotr,matem]))),
+((inlist(Amigos,[sergey,matem]));inlist(Amigos,[roman,fisica])),
+inlist(Amigos,[roman,Who1]),
+write(Amigos),nl,write('roman lee '),write(Who1),!.
 
