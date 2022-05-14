@@ -148,3 +148,12 @@ write(net),!.
 
 task20:-read(N),readlist(Lis,N),read(I),islocalmax(Lis,I),!.  
 
+%kollats
+
+kollats(N,C):-kollats(N,C,0).
+kollats(1,L,L):-!.
+kollats(N,C,K):-0 is N mod 2,N2 is N div 2,K1 is K + 1,kollats(N2,C,K1),!;N3 is N*3+1,K2 is K + 1,kollats(N3,C,K2).
+
+allKollats(To,Res):-allKollats(To,Res,0,0).
+
+allKollats(

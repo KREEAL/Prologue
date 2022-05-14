@@ -187,9 +187,38 @@ getindex(L,El,I):-getindex(L,El,I,0).
 getindex([],_,G,G):-!.
 getindex([H|T],El,I,C):- H=\=El,C1 is C + 1,!,getindex(T,El,I,C1);getindex([],El,I,C),!.
 
-%5
-	
-%я шота условие не понял
+
+%5 Дан файл, вывести в отдельный файл строки, состоящие из слов, не
+%повторяющихся в исходном файле.
+%task2_5:-see('D:/prologue/PrologLabFilp/LR14/2_5i.txt'),read_list_str(List), seen, allwords(List,AllWords),not_repeat(AllWords,UniqueWords), 
+%tell('D:/prologue/PrologLabFilp/LR14/2_5o.txt'),no_incidence(List,UniqueWords),told.
+
+task2_5:-see('D:/prologue/PrologLabFilp/LR14/2_5i.txt'),read_list_str(List), seen, allwords(List,AllWords),unique(AllWords,UniqueWords), 
+tell('D:/prologue/PrologLabFilp/LR14/2_5o.txt'),write_list_str(UniqueWords),told.
+
+%вывод строки в соотношении с уникальными словами
+solowords(String,Allwrds):-solowords(String,Allwrds,[]).
+solowords(K,_,K):-!.
+solowords([H|T],Allwrds,S):-count(H,Allwrds,Cou),Cou<2,write_str(H),!,append(S,H,S1),solowords(T,Allwrds,S1),!;append(S,H,S2),solowords(T,Allwrds,S2).
+
+%обработка всех строка
+
+
+no_incidence([],_):-!.
+no_incidence([H|T],UniqueWords):-(getwords(H,WordsHead,_), coin_str(WordsHead,UniqueWords)->write_str(H),nl, no_incidence(T,UniqueWords);no_incidence(T,UniqueWords)).
+
+coin_str([],_):-!.
+coin_str([H|T],UniqueWords):-inlist(UniqueWords,H),coin_str(T,UniqueWords).
+
+del(_,[],[]):-!.
+del(H,[H|T],Res):-del(H,T,Res),!.
+del(H,[H1|T],[H1|Res]):-not(H=H1),del(H,T,Res).
+
+not_repeat([],[]):-!.
+not_repeat([H|T],[H|Res]):-not(inlist(T,H)), not_repeat(T,Res),!.
+not_repeat([H|T],Res):-del(H,T,H1),not_repeat(H1,Res).
+
+
 
 /****************************************************************************************************/
 
@@ -375,3 +404,4 @@ tworepeatedtwice(List,Res):-tworepeatedtwice(List,Res,[]).
 tworepeatedtwice([],R,R):-!.
 tworepeatedtwice([H|T],Res,Temp):- unique(H,Uniq),pointer(H,Uniq,Freqlist),frequency(Freqlist,1,Coun1),Coun1=:=2,!,frequency(Freqlist,2,Coun2),Coun2=:=2,
 append(Temp,[H],Temp1),tworepeatedtwice(T,Res,Temp1);tworepeatedtwice(T,Res,Temp).
+ 
